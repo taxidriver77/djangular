@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block content %}
+   <h1> {{ customers.count|apnumber|title }} customer{{ customers.count|pluralize }} </h1>
+
+   {% for customer in customers %}
+       <!--h2> {{ customer.name }} by {{ customer.list_companies }} </h2>
+       <h3>position {{ customer.fname }} </h3-->
+       {% include "customer-detail.html" %}
+   {% endfor %}
+{% endblock %}

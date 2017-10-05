@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for company in companies %}
+       <h2><a href="{% url 'company-detail' company.pk %}"> {{ company.name }}</a></h2>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,8 @@
+<div class="customer">
+    <h3><a href="{% url 'customer-detail' customer.pk %}">{{ customer.name }}</a></h3>
+    <p> By {% for company in customer.companies.all %}
+        <a href="{% url 'company-detail' company.pk %}"> {{ company.name }} </a>
+        {% endfor %}
+    </p>
+    <p>position : {{ customer.fname }} </p>
+</div>
