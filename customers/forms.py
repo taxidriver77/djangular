@@ -5,7 +5,7 @@ class ReviewForm(forms.Form):
        Form for reviewing customer
        '''
 
-       is_favorite = forms.BooleanField(
+       is_favourite = forms.BooleanField(
            label="Favourite ?",
            help_text = 'In you top 100 customers of all',
            required = False,

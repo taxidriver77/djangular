@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from django.http import HttpResponse
 from django.views.generic import View, DetailView
 from .models import Customer,Company
@@ -59,7 +59,20 @@ def review_customer(request, pk):
     Review an individual customer
     """
     customer = get_object_or_404(Customer, pk=pk)
-    form = ReviewForm
+
+    if request.method =='POST':
+        # Process our form
+        form = ReviewForm(request.POST)
+
+        if form.is_valid():
+            customer.is_favourite = form.cleaned_data['is_favourite']
+            customer.review = form.cleaned_data['review']
+            customer.save()
+
+            return redirect('review-customers')
+    else:
+        form = ReviewForm
+
 
     context = {
         'customer': customer,

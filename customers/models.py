@@ -10,6 +10,8 @@ class ListCustomer(models.Model):
 class Customer(models.Model):
     name = models.CharField(max_length=100)
     fname = models.CharField(max_length=100)
+    review = models.TextField(blank=True, null=True)
+    is_favourite = models.BooleanField(default=False)
     companies = models.ManyToManyField("Company",related_name = "Company")
     list = models.ForeignKey(ListCustomer, related_name = "customers")
 
