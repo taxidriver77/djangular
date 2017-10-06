@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Customer pending review</h1>
+	
+	{% if customers %}
+		<table>
+			<thead>
+				<th>Title &amp; Author</th>
+				<th class="align-right">Action</th>
+			</thead>
+			<tbody>
+				{% for customer in customers %}
+					<tr>
+						<td class="title">
+							{{ customer.name }} by {{ customer.list_companies }}
+						</td>
+						<td class="align-right">
+							<a href="{% url 'review-customer' customer.pk %}">Review</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+		<p>There are no customers waiting to be reviewed.  Good job!</p>
+	{% endif %}
+{% endblock %}

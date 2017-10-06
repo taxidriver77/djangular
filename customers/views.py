@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import View, DetailView
 from .models import Customer,Company
-
+from .forms import ReviewForm
 
 # Create your views here.
 def list_customers(request):
@@ -39,3 +39,31 @@ class CustomerDetail(DetailView):
 class CompanyDetail(DetailView):
     model = Company
     template_name = 'company.html'
+
+
+def review_customers(request):
+    """
+    List all of the customers that we want to review.
+    """
+    customers = Customer.objects.filter().prefetch_related('companies')
+
+    context = {
+        'customers': customers,
+    }
+
+    return render(request, "list-to-review.html", context)
+
+
+def review_customer(request, pk):
+    """
+    Review an individual customer
+    """
+    customer = get_object_or_404(Customer, pk=pk)
+    form = ReviewForm
+
+    context = {
+        'customer': customer,
+        'form':form,
+    }
+
+    return render(request, "review-customer.html", context)
