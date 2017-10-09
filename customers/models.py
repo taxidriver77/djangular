@@ -22,6 +22,9 @@ class Customer(models.Model):
     def list_companies(self):
         return ", ".join([Company.name for Company in self.companies.all()])
 
+    def save(self, *args, **kwargs):
+        super(Customer, self).save(*args, **kwargs)
+
 
 class Company(models.Model):
     name = models.CharField(max_length=100, unique=True)

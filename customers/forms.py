@@ -1,4 +1,5 @@
 from django import forms
+from .models import Customer
 
 class ReviewForm(forms.Form):
        '''
@@ -20,4 +21,9 @@ class ReviewForm(forms.Form):
            }
        )
 
+
+class CustomerForm(forms.ModelForm):
+   class Meta:
+        model = Customer
+        fields = ['name','companies','fname','list']
 

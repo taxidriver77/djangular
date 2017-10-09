@@ -6,7 +6,7 @@
 	{% if customers %}
 		<table>
 			<thead>
-				<th>Title &amp; Author</th>
+				<th>Name &amp; Position</th>
 				<th class="align-right">Action</th>
 			</thead>
 			<tbody>
@@ -25,4 +25,10 @@
 	{% else %}
 		<p>There are no customers waiting to be reviewed.  Good job!</p>
 	{% endif %}
+	<h2>Request a new review</h2>
+	<form method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Add a customer">
+	</form>
 {% endblock %}
