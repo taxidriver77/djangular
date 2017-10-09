@@ -1,4 +1,5 @@
 from django.shortcuts import render,get_object_or_404,redirect
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.views.generic import View, DetailView
@@ -84,6 +85,7 @@ class CreateCompany(CreateView):
         return reverse('review-customers')
 
 
+@login_required
 def review_customers(request):
     """
     List all of the customers that we want to review.
@@ -97,7 +99,7 @@ def review_customers(request):
     return render(request, "list-to-review.html", context)
 
 
-
+@login_required
 def review_customer(request, pk):
     """
     Review an individual customer

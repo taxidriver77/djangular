@@ -20,12 +20,20 @@ from django.conf.urls import include
 from django.conf import settings
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.contrib.auth import views as auth_views
 
 
 
 
 urlpatterns = [
+    #Auth
+    #url(r'^logout/', auth_views.logout,{'next_page':'customers'} ,name='logout'),
+    #url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
+
+    #Admin
     url(r'^admin/', admin.site.urls),
+
+    #Custom
     url(r'^$', ensure_csrf_cookie(TemplateView.as_view(template_name="home.html"))),
     url(r'^scrumboard/', include('scrumboard.urls')),
     url(r'^auth_api/', include('auth_api.urls')),
