@@ -27,3 +27,22 @@ class CustomerForm(forms.ModelForm):
         model = Customer
         fields = ['name','companies','fname','list']
 
+
+   def clean(self):
+        # Super the clean method to maintain main validation and error messages
+        super(CustomerForm, self).clean()
+
+        try:
+            name = self.cleaned_data.get('name')
+            companies = self.cleaned_data.get('companies')
+            customer = Customer.objects.get(name=name, companies=companies)
+
+            raise forms.ValidationError(
+				'The customer {} by {} already exists'.format(name, customer.list_companies()),
+				code='customerexists'
+            )
+
+        except Customer.DoesNotExist:
+            return self.cleaned_data
+
+
