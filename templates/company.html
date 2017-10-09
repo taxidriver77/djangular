@@ -1,4 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
     {% include "company-detail.html" %}
+        <p class="meta">
+        {% if customer.reviewed_by %}
+          Reviewed by <strong> {{ customer.reviewed_by.get_full_name|default:customer.reviewed_by.username }}</strong>
+        {% endif %}
+        </p>
 {% endblock %}

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.core.urlresolvers import reverse
 
@@ -12,6 +13,7 @@ class Customer(models.Model):
     name = models.CharField(max_length=100)
     fname = models.CharField(max_length=100)
     review = models.TextField(blank=True, null=True)
+    reviewed_by = models.ForeignKey(User, blank=True, null=True, related_name = "reviews")
     is_favourite = models.BooleanField(default=False)
     companies = models.ManyToManyField("Company",related_name = "Company")
     list = models.ForeignKey(ListCustomer, related_name = "customers")

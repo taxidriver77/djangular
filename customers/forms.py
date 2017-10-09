@@ -25,7 +25,7 @@ class ReviewForm(forms.Form):
 class CustomerForm(forms.ModelForm):
    class Meta:
         model = Customer
-        fields = ['name','companies','fname','list']
+        fields = ['name','companies','fname','list','reviewed_by']
 
 
    def clean(self):

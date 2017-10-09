@@ -111,6 +111,7 @@ def review_customer(request, pk):
         if form.is_valid():
             customer.is_favourite = form.cleaned_data['is_favourite']
             customer.review = form.cleaned_data['review']
+            customer.reviewed_by = request.user
             customer.save()
 
             return redirect('review-customers')
