@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 
 class ListCustomer(models.Model):
@@ -31,3 +32,6 @@ class Company(models.Model):
 
     def __str__(self):
         return "Company: {}".format(self.name)
+
+    def get_absolute_url(self):
+        return reverse('company-detail', kwargs={'pk', self.pk})

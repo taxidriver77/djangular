@@ -1,6 +1,8 @@
 from django.shortcuts import render,get_object_or_404,redirect
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.views.generic import View, DetailView
+from django.views.generic.edit import CreateView
 from .models import Customer,Company
 from .forms import ReviewForm,CustomerForm
 
@@ -71,6 +73,15 @@ class ReviewList(View):
         }
 
         return render(request, "list-to-review.html", context)
+
+
+class CreateCompany(CreateView):
+    model =  Company
+    fields = ['name',]
+    template_name= 'create-company.html'
+
+    def get_success_url(self):
+        return reverse('review-customers')
 
 
 def review_customers(request):

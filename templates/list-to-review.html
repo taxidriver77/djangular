@@ -26,9 +26,68 @@
 		<p>There are no customers waiting to be reviewed.  Good job!</p>
 	{% endif %}
 	<h2>Request a new review</h2>
-	<form method="post">
+	<!--form method="post">
 		{% csrf_token %}
 		{{ form.as_p }}
+		<input type="submit" value="Add a customer">
+	</form-->
+	<form method="post">
+		{% csrf_token %}
+
+		{% if form.non_field_errors %}
+			<div class="non-field-errors">
+				{% for error in form.non_field_errors %}
+					<span>{{ error }}</span>
+				{% endfor %}
+			</div>
+		{% endif %}
+
+		<label>{{ form.name.label }}</label>
+		{{ form.name }}
+		{{ form.name.help_text }}
+
+		{% if form.name.errors %}
+			<div class="form-error">
+				{% for error in form.name.errors %}
+					<span>{{ error }}</span>
+				{% endfor %}
+			</div>
+		{% endif %}
+
+		<label>{{ form.companies.label }}</label>
+		{{ form.companies }}
+		{% if form.companies.errors %}
+			<div class="form-error">
+				{% for error in form.companies.errors %}
+					<span>{{ error }}</span>
+				{% endfor %}
+			</div>
+		{% endif %}
+
+		<label>{{ form.fname.label }}</label>
+		{{ form.fname }}
+		{{ form.fname.help_text }}
+
+		{% if form.name.errors %}
+			<div class="form-error">
+				{% for error in form.fname.errors %}
+					<span>{{ error }}</span>
+				{% endfor %}
+			</div>
+		{% endif %}
+
+		<label>{{ form.list.label }}</label>
+		{{ form.list }}
+		{% if form.list.errors %}
+			<div class="form-error">
+				{% for error in form.list.errors %}
+					<span>{{ error }}</span>
+				{% endfor %}
+			</div>
+		{% endif %}
+
+		<p>Can't find the author you're looking for? <a href="{% url 'add-company' %}">Create a New Company</a></p>
+
 		<input type="submit" value="Add a customer">
 	</form>
 {% endblock %}
