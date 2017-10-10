@@ -151,3 +151,7 @@ SHOW_TOOLBAR_CALLBACK = show_toolbar
 INTERNAL_IPS = ('127.0.0.1',)
 DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False,}
 
+
+# Auth
+LOGIN_URL = '/login/'
+

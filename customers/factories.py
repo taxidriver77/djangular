@@ -1,7 +1,7 @@
 import factory
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
-from .models import Company, Customer
+from .models import Company, Customer,ListCustomer
 
 
 
@@ -13,7 +13,6 @@ class CompanyFactory(factory.django.DjangoModelFactory):
         model = Company
 
     name = factory.Faker('name')
-
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -37,6 +36,7 @@ class CustomerFactory(factory.django.DjangoModelFactory):
 		model = Customer
 
 	name = factory.Faker('word')
+	fname = factory.Faker('word')
 
 	@factory.post_generation
 	def companies(self, create, extracted, **kwargs):

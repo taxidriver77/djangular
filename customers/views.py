@@ -12,7 +12,7 @@ def list_customers(request):
     '''
         List the customers
     '''
-    customers = Customer.objects.exclude().prefetch_related('companies')
+    customers = Customer.objects.exclude(review__isnull=True).prefetch_related('companies')
     context = {
         'customers': customers,
     }
