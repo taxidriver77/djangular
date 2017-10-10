@@ -15,17 +15,23 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+DJANGO_MODE = os.getenv('DJANGO_MODE',"Production").lower()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ws54u*c^=!e^6_j^(-l$uol&j-p5!nk6g+ci^s_1tf^yz0^t*)'
+#SECRET_KEY = 'ws54u*c^=!e^6_j^(-l$uol&j-p5!nk6g+ci^s_1tf^yz0^t*)'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if DJANGO_MODE == 'local':
+    DEBUG = True
+else:
+    DEBUG = False
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 
 # Application definition
@@ -38,12 +44,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'debug_toolbar',
     'rest_framework',
     'scrumboard',
     'auth_api',
     'customers',
 ]
+
+if DJANGO_MODE == 'local':
+    INSTALLED_APPS += (
+        'debug_toolbar',
+    )
 
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
@@ -80,28 +90,28 @@ WSGI_APPLICATION = 'djangular.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+if DJANGO_MODE == 'local':
+    DATABASES = {
+        #'default': {
+        #    'ENGINE': 'django.db.backends.sqlite3',
+        #    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #}
+        #'default' : {
+        #  'ENGINE' : 'django_mongodb_engine',
+        #  'NAME' : 'my_database'
+        #}
 
-DATABASES = {
-    #'default': {
-    #    'ENGINE': 'django.db.backends.sqlite3',
-    #    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    #}
-    #'default' : {
-    #  'ENGINE' : 'django_mongodb_engine',
-    #  'NAME' : 'my_database'
-    #}
-
-    'default': {
-         'ENGINE': 'django.db.backends.sqlite3',
-          'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    #    'ENGINE': 'django_mongodb_engine',
-    #    'NAME': 'global',
-    #    'USER': '',
-    #    'PASSWORD': '',
-    #    'HOST': 'localhost',
-    #    'PORT': 27017,
+        'default': {
+             'ENGINE': 'django.db.backends.sqlite3',
+              'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #    'ENGINE': 'django_mongodb_engine',
+        #    'NAME': 'global',
+        #    'USER': '',
+        #    'PASSWORD': '',
+        #    'HOST': 'localhost',
+        #    'PORT': 27017,
+        }
     }
-}
 
 
 # Password validation
